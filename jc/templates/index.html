@@ -59,8 +59,32 @@
 
         </div>
     </div>
-     <!-- Thanks for RSVPing Modal -->
-     <div class="modal fade" id="RSVP" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RSVPLabel" aria-hidden="true">
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcome" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="welcomeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5 fw-bold"
+                        style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"
+                        id="welcomeLabel">
+                        Celebrating Jolly Cole.
+                    </h3>
+                </div>
+                <div class="modal-body fs-5 text-justified">
+                    <p> The Ultimate birthday celebration is coming, and it's all about Jolly Cole turning 50! </p>
+                    <p> The countdown is on, <br /> Please RSVP today. </p>
+                    <p> See you soon. </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-dark col-4" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Welcome Modal -->
+
+    <!-- Thanks for RSVPing Modal -->
+    <div class="modal fade" id="RSVP" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RSVPLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,7 +108,11 @@
                     <p>We are looking forward to celebrating with you.</p>
                     <p>Cheers 🥂, <br /> <span class="fw-bold"> JC.</span> </p>
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-dark col-4" data-bs-dismiss="modal"> Close </button>
+                        <button type="button"
+                            class="btn btn-dark col-4"
+                            data-bs-dismiss="modal"
+                            onclick="window.location.href='{% url 'home' %}?rsvped=true'"> Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -98,18 +126,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
+        // Function to show the welcome modal
+        window.onload = function() {
+            const welcomeModal = new bootstrap.Modal(document.getElementById('welcome'));
+            if(window.location.search.includes('rsvped=true')){
+                welcomeModal.hide();
+            } else {
+                welcomeModal.show();
+            }
+        };
         
         window.addEventListener('load', () => {
-            // Show the invite image on page load
-            setTimeout(() => {
-                document.querySelector('.imagecontainer').classList.add('show');
-            }, 1000);
-
             // show the title on page load
             setTimeout(() => {
                 document.querySelector('.title').classList.add('show');
             }, 2000);
         });
+
+        // Function to show the thank you modal
+        const showModal = () => {
+        const modal = new bootstrap.Modal(document.getElementById('RSVP'));
+            modal.show(); 
+        };
 
         //Setting the country code based on user IP or selected country code
         const phoneInput = document.querySelector("#phone");
@@ -170,13 +208,19 @@
 
             if (!name) {
                 showAlert("<span class='text-danger'><i class='fa fa-circle-xmark'></i></span> Please provide your name.");
-                $("#name").focus();
+                setTimeout(() => {
+                    $("#name").focus();
+                }, 3000);
             } else if (phone.length < 8) {
                 showAlert("<span class='text-danger'><i class='fa fa-circle-xmark'></i></span> Please provide your phone number.");
-                $("#phone").focus();
+                setTimeout(() => {
+                    $("#phone").focus();
+                }, 3000);
             } else if (!email) {
                 showAlert("<span class='text-danger'><i class='fa fa-circle-xmark'></i></span> Please provide your email address.");
-                $("#email").focus();
+                setTimeout(() => {
+                    $("#email").focus();
+                }, 3000);
             } else {
                 $.ajax({
                     url: "{% url 'home' %}",
@@ -199,15 +243,19 @@
                         if (response.status == 200) {
                             showAlert("<span class='text-success'><i class='fa fa-circle-check'></i></span> Your RSVP has been recorded.");
                             setTimeout(() => {
-                                window.location.href = "{% url 'home' %}?rsvped=true";
+                                showModal();
                             }, 3000);
                         } else if (response.status == 120) {
                             showAlert("<span class='text-info'><i class='fa fa-circle-info'></i></span> Another guest has RSVPed with this phone number.");
-                            $('#phone').focus();
+                            setTimeout(() => {
+                                $('#phone').focus();
+                            }, 3000);
                         }
                         else if (response.status == 100) {
                             showAlert("<span class='text-info'><i class='fa fa-circle-info'></i></span> Another guest has RSVPed with this email address.");
-                            $('#email').focus();
+                            setTimeout(() => {
+                                $('#email').focus();
+                            }, 3000);
                         }
                         $('#submitBtn').text("Kindly RSVP");
                     },
@@ -218,19 +266,7 @@
                 });
             }
         });
-        
-        // Function to show the thank you modal
-        const showModal = () => {
-            const modal = new bootstrap.Modal(document.getElementById('RSVP'));
-            modal.show(); 
-        };
-
-        // Check if the URL has the query parameter 'rsvped'
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('rsvped')) {
-            showModal();
-        }
-
+    
     </script>
 </body>
 </html>

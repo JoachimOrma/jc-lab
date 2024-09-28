@@ -53,8 +53,6 @@ body, html {
     background-position: center;
     border-radius: 10px;
     cursor: pointer;
-    opacity: 0;
-    display: none;
 } 
 
 /* Image Container Title */
