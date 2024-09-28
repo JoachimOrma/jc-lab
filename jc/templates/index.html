@@ -59,29 +59,6 @@
 
         </div>
     </div>
-    <!-- Welcome Modal -->
-    <div class="modal fade" id="welcome" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="welcomeLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title fs-5 fw-bold"
-                        style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"
-                        id="welcomeLabel">
-                        Celebrating Jolly Cole.
-                    </h3>
-                </div>
-                <div class="modal-body fs-5 text-justified">
-                    <p> The Ultimate birthday celebration is coming, and it's all about Jolly Cole turning 50! </p>
-                    <p> The countdown is on, <br /> Please RSVP today. </p>
-                    <p> See you soon. </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-dark col-4" data-bs-dismiss="modal"> Close </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Welcome Modal -->
 
     <!-- Thanks for RSVPing Modal -->
     <div class="modal fade" id="RSVP" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RSVPLabel" aria-hidden="true">
@@ -126,16 +103,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
-        // Function to show the welcome modal
-        window.onload = function() {
-            const welcomeModal = new bootstrap.Modal(document.getElementById('welcome'));
-            if(window.location.search.includes('rsvped=true')){
-                welcomeModal.hide();
-            } else {
-                welcomeModal.show();
-            }
-        };
-        
+       
         // show the title on page load
         window.addEventListener('load', () => {
             setTimeout(() => {
