@@ -82,7 +82,7 @@ def index(request):
                         <p>Thank you for RSVPing for Jolly Cole's 50th birthday celebration, we can't wait to have you there! 
                         Expect a night of high energy beats, great company, and unforgettable moments.</p>
                         <p>Please find attached your personalised QR. It is your exclusive pass for entry, so please
-                        make sure to have it handy - no QR, no entry! <br />For security reasons, please do not share or duplicate your code.</p>
+                        make sure to have it handy - no QR, no entry! <br /> For security reasons, please do not share or duplicate your code.</p>
                         <p>We've got the vibes, the beats, and the energy - all we need is you!</p>
                         <p>Cheers 🥂, <br /> Jolly Cole. </p>
                         <img src="cid:image1" alt="QR" width="300"/>
