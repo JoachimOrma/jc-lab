@@ -3,14 +3,14 @@ body, html {
     padding: 0;
     margin: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    background: #fff;
 }
 
 .hidden { display: none; }
 
 /* PAGE BACKROUND */
 .page-background {
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("../img/IV.jpg");
+    background: url("../img/bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
