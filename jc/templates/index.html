@@ -27,8 +27,8 @@
                 <div class="formcontainer">
                     <div class="py-4">
                         <div class="p-4 pb-0">
-                            <h4 style="color: rgb(235, 181, 49);"> Please Enter Your Details </h4>
-                            <small style="font-family: cursive; color: #fff">Let's make a toast to <span style="color:  rgb(235, 181, 49)">JC</span> @50</small>
+                            <h2 style="color: rgb(235, 181, 49);"> Please Enter Your Details </h2>
+                            <h5 style="font-family: cursive; color: #fff">Let's make a toast to <span style="color:  rgb(235, 181, 49)">JC</span> @50</h5>
                         </div>
                         <form method="post" class="p-4">
                             {% csrf_token %}
@@ -40,7 +40,7 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="phone" class="form-label">Phone Number</label>
                                     <input type="tel" name="phone" id="phone" class="form-control border-secondary" minlength="14" maxlength="14" required/>
-                                    <small style="font-size: 14px; color: #fff">Enter your WhatsApp number without the leading zero (0)</small>
+                                    <small style="font-size: 14px; color: #fff; margin-top: 1.5px;">Enter your WhatsApp number without the leading zero (0)</small>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="email" class="form-label">Email Address</label>
