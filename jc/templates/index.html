@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/css/intlTelInput.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+    <div class="container-fluid page-background">
+
+        <p class="title">Click on the image to continue</p>
+        <div class="maincontainer">
+
+            <div class="animationcontainer">
+
+                <!-- Invite -->
+                <div class="imagecontainer animate_animated"> </div>
+                <!-- Invite -->
+
+                <!-- Form -->
+                <div class="formcontainer">
+                    <div class="py-4">
+                        <div class="p-4 pb-0">
+                            <h4 style="color: rgb(235, 181, 49);"> Please Enter Your Details </h4>
+                            <small style="font-family: cursive; color: #fff">Let's make a toast to <span style="color:  rgb(235, 181, 49)">JC</span> @50</small>
+                        </div>
+                        <form method="post" class="p-4">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="first_name" class="form-label">Your Name</label>
+                                    <input type="text" name="name" id="name" class="form-control border-secondary" required/>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" name="phone" id="phone" class="form-control border-secondary" minlength="14" maxlength="14" required/>
+                                    <small style="font-size: 14px; color: #fff">Enter your WhatsApp number without the leading zero (0)</small>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="text" name="email" id="email" class="form-control border-secondary" required/>
+                                </div>                  
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-gold" id="submitBtn">Kindly RSVP</button>
+                                </div>
+                            </div>  
+                        </form>
+                    </div>
+                </div>
+                <!-- Form -->
+
+            </div>
+
+        </div>
+    </div>
+     <!-- Thanks for RSVPing Modal -->
+     <div class="modal fade" id="RSVP" style="z-index: 20000;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="RSVPLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down">
+            <div class="modal-content" style="background-color: #e2d294">
+                <div class="modal-header">
+                    <h4 class="modal-title fs-5" style="font-family: cursive;" id="RSVPLabel">Jolly Cole @50 Welcome to the party of a Lifetime.</h4>
+                </div>
+                <div class="modal-body fs-5">
+                    <p>
+                        Thank you for RSVPing for Jolly Cole's 50th birthday celebration, we can't wait to have you there! 
+                        Expect a night of high energy beats, great company, and unforgettable moments.
+                    </p>
+                    <p> 
+                        Your personalised QR code will be send to your WhatsApp number. It is your exclusive pass for entry, so please
+                        make sure to have it handy - no QR, no entry! For security reasons, please don not share or duplicate your code.
+                    </p>
+                    <p>We've got the vibes, the beats, and the energy - all we need is you!</p>
+                    <p>Cheers 🥂, <br /> Jolly Cole. </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Thanks for RSVPing Modal -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script>
+        
+        window.addEventListener('load', () => {
+            // Show the invite image on page load
+            setTimeout(() => {
+                document.querySelector('.imagecontainer').classList.add('show');
+            }, 1000);
+
+            // show the title on page load
+            setTimeout(() => {
+                document.querySelector('.title').classList.add('show');
+            }, 2000);
+        });
+
+        //Setting the country code based on user IP or selected country code
+        const phoneInput = document.querySelector("#phone");
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch('https://ipinfo.io?token=bcb827c04a7581') 
+                    .then(response => response.json())
+                    .then(data => callback(data.country))
+                    .catch(() => callback('us'));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        // Retrieve the selected country code
+        phoneInput.addEventListener('countrychange', function() {
+            const countryCode = iti.getSelectedCountryData().dialCode;
+            if (!phoneInput.value.startsWith('+' + countryCode)) {
+                phoneInput.value = '+' + countryCode + '' + phoneInput.value.replace(/^\+\d+\s*/, '');
+            }
+        });
+
+        //Submitting the form
+        $('#submitBtn').click(function(e) {
+            e.preventDefault();
+
+            const name = $("#name").val().trim();
+            const email = $("#email").val().trim();
+            const phone = $("#phone").val().trim();
+
+            function showAlert(text, icon, timer = 2000) {
+                swal({ text, icon, timer, buttons: false });
+            }
+
+            if (!name) {
+                showAlert("Please provide your name.", 'error');
+                $("#name").focus();
+            } else if (phone.length < 8) {
+                showAlert("Please provide your phone number.", 'error');
+                $("#phone").focus();
+            } else if (!email) {
+                showAlert("Please provide your email address.", 'error');
+                $("#email").focus();
+            } else {
+                $.ajax({
+                    url: "{% url 'home' %}",
+                    type: 'POST',
+                    data: {
+                        name,
+                        email,
+                        phone,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    beforeSend: function() {
+                        $('#submitBtn').html(`
+                            <div class='d-flex align-items-center justify-content-center'>
+                                <span class='spinner-border text-light' aria-hidden='true'></span>
+                                <span role='status' class="sr-only">processing...</span>
+                            </div>
+                        `);
+                    },
+                    success: function(response) {
+                        if (response.status == 200) {
+                            showAlert("Your RSVP has been recorded.", 'success');
+                            setTimeout(() => {
+                                window.location.href = "{% url 'home' %}?rsvped=true";
+                            }, 2400);
+                        } else if (response.status == 120) {
+                            showAlert("Another guest has RSVPed with this phone number.", 'error', 3000);
+                            $('#phone').focus();
+                        }
+                        else if (response.status == 100) {
+                            showAlert("Another guest has RSVPed with this email.", 'error', 3000);
+                            $('#email').focus();
+                        }
+                        $('#submitBtn').text("Kindly RSVP");
+                    },
+                    error: function(error) {
+                        showAlert("Something went wrong, please check your internet connection and try again.", 'error');
+                        $('#submitBtn').text("Kindly RSVP");
+                    },
+                });
+            }
+        });
+        
+        // Function to show the modal
+        const showModal = () => {
+            const modal = new bootstrap.Modal(document.getElementById('RSVP'));
+            modal.show(); // Use Bootstrap's show method
+        };
+
+        // Check if the URL has the query parameter 'rsvped'
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('rsvped')) {
+            showModal();
+        }
+
+    </script>
+</body>
+</html>

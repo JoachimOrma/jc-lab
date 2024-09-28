@@ -1,0 +1,187 @@
+body, html {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 100%;
+    background: linear-gradient(rgba(8, 9, 13, 0.8), rgba(15, 23, 43, .8));
+}
+
+.hidden { display: none; }
+
+/* PAGE BACKROUND */
+.page-background {
+    background: linear-gradient(rgba(8, 9, 13, 0.8), rgba(15, 23, 43, .8)), url("../img/IV.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* MAIN PAGE CONTAINER */
+.maincontainer {
+    position: relative;
+    width:354.6px;
+    height:504px;
+}
+
+/* ANIMATION CONTAINER */
+.animationcontainer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+}
+
+.animationcontainer:hover {
+    transform: rotateY(180deg);
+}
+/* INVITE IMAGE CONTAINER */
+.imagecontainer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background-image: url('../img/IV.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0;
+    display: none;
+} 
+
+.title {
+    text-align: center;
+    color: gray;
+    opacity: 0;
+    display: none;
+}
+
+/* Class to show the image container */
+.show {
+    display: inline-block;
+    opacity: 1;
+}
+
+/* FORM CONTAINER */
+.formcontainer {
+    color: rgb(235, 181, 49);
+    background-color: #030303;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    border-radius: 10px;
+}
+
+/* COUNTRY CODE FILED */
+.iti { width: 100%; }
+
+/* SPINNER */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.btn-gold { color: #000;  background-color:  rgb(235, 181, 49); }
+
+.btn-gold:hover,
+.btn-gold:focus,
+.btn-gold:active {
+    background-color:  rgba(235, 181, 49, .7);
+    color: #000;
+}
+
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+ 
+ @keyframes shift {
+    0%, 40%, 44%, 58%, 61%, 65%, 69%, 73%, 100% {
+       transform: skewX(0deg);
+    }
+    41% {
+       transform: skewX(10deg);
+    }
+    42% {
+       transform: skewX(-10deg);
+    }
+    59% {
+       transform: skewX(35deg) skewY(10deg);
+    }
+    60% {
+       transform: skewX(-35deg) skewY(-10deg);
+    }
+    63% {
+       transform: skewX(10deg) skewY(-5deg);
+    }
+    70% {
+       transform: skewX(-30deg) skewY(-20deg);
+    }
+    71% {
+       transform: skewX(10deg) skewY(-10deg);
+    }
+ }
+ 
+
+/* MEDIA QUERIES */
+/* For smartphones */
+@media (max-width: 480px) {
+    .page-background {
+        height: 100vh;
+        width: 100vw; 
+    }
+}
+
+/* For larger smartphones or small tablets */
+@media (min-width: 481px) and (max-width: 600px) {
+    .page-background {
+        height: 100vh;
+        width: 100vw;
+    }
+}
